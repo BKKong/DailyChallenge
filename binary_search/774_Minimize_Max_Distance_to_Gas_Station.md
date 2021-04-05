@@ -9,7 +9,7 @@ Let penalty() be the maximum distance between adjacent gas stations after adding
 Return the smallest possible value of penalty(). Answers within 10-6 of the actual answer will be accepted.
 
 Example:
-  Input: stations = [23,24,36,39,46,56,57,65,84,98], k = 1
+  Input: stations = [23,24,36,39,46,56,57,65,84,98], k = 1   
   Output: 14.00000
 ```
 import math
@@ -30,8 +30,8 @@ class Solution:
                 right = mid
             else:
                 left = mid
-        return left                        ### Bug: `if self.is_possible(left, k, stations, dists): return left`
-                                           ### 二分答案不需要再验证条件是否成立
+        return left                                        ### Bug: `if self.is_possible(left, k, stations, dists): return left`
+                                                           ### 二分答案不需要再验证条件是否成立
     def is_possible(self, delta, k, stations, dists):
         st_to_add = 0
         for i in range(len(stations) - 1):
