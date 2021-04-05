@@ -1,4 +1,5 @@
-#### 
+#### 774. Minimize Max Distance to Gas Station
+
 You are given an integer array stations that represents the positions of the gas stations on the x-axis. You are also given an integer k.
 
 You should add k new gas stations. You can add the stations anywhere on the x-axis, and not necessarily on an integer position.
@@ -30,11 +31,11 @@ class Solution:
             else:
                 left = mid
         return left                        ### Bug: `if self.is_possible(left, k, stations, dists): return left`
-                                           ### 二分
+                                           ### 二分答案不需要再验证条件是否成立
     def is_possible(self, delta, k, stations, dists):
         st_to_add = 0
         for i in range(len(stations) - 1):
-            st_to_add += math.ceil(dists[i] / delta) - 1
+            st_to_add += math.ceil(dists[i] / delta) - 1   ### Bug: st_to_add += int(dists[i] / delta) 如果 1 / 0.5 = 2, 实际要加两个点？不对
         return st_to_add <= k
         
 ```
