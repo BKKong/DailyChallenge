@@ -8,7 +8,7 @@ Let penalty() be the maximum distance between adjacent gas stations after adding
 
 Return the smallest possible value of penalty(). Answers within 10-6 of the actual answer will be accepted.
 
-Example:
+Example:     
   Input: stations = [23,24,36,39,46,56,57,65,84,98], k = 1   
   Output: 14.00000
 ```
