@@ -48,3 +48,43 @@ class Solution:
             self.flip = [-1]
         return self.flip
 ```
+
+#### 1597. Build Binary Expression Tree From Infix Expression
+```
+# Definition for a binary tree node.
+# class Node(object):
+#     def __init__(self, val=" ", left=None, right=None): 
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def expTree(self, s: str) -> 'Node':
+        def build_node(op, right_node, left_node):
+            return Node(op, left_node, right_node)
+        def lower_precedence(curr_op, prev_op):
+            if prev_op == "(":
+                return False
+            if curr_op in ["*", "/"] and prev_op in ["+", "-"]:
+                return False
+            return True
+        
+        n = len(s)
+        nodes, ops = [], []
+        for i in range(n):
+            c = s[i]
+            if c.isdigit():
+                nodes.append(Node(c))
+            elif c == "(":
+                ops.append(c)
+            elif c == ")":
+                while ops[-1] != "(":
+                    nodes.append(build_node(ops.pop(), nodes.pop(), nodes.pop()))
+                ops.pop()
+            else:
+                while len(ops) > 0 and lower_precedence(c, ops[-1]):
+                    nodes.append(build_node(ops.pop(), nodes.pop(), nodes.pop()))
+                ops.append(c)
+        while ops:
+            nodes.append(build_node(ops.pop(), nodes.pop(), nodes.pop()))
+        return nodes.pop()
+```
