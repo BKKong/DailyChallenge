@@ -51,4 +51,59 @@ class RandomizedSet:
         index = random.randint(0, self.size - 1)
         return self.nums[index]
 ```
- 
+### 381. Insert Delete GetRandom O(1) - Duplicates allowed
+
+import random
+class RandomizedCollection:
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.store = defaultdict(set)
+        self.nums = []
+        self.size = 0
+
+    def insert(self, val: int) -> bool:
+        """
+        Inserts a value to the collection. Returns true if the collection did not already contain the specified element.
+        """
+        not_exist = False
+        if val not in self.store:
+            not_exist = True
+        self.store[val].add(self.size)
+        self.nums.append(val)
+        self.size += 1
+        return not_exist
+
+    def remove(self, val: int) -> bool:
+        """
+        Removes a value from the collection. Returns true if the collection contained the specified element.
+        """
+        if val not in self.store:
+            return False
+        last_num, last_index = self.nums[-1], self.size - 1
+        if last_num == val:
+            self.store[val].remove(last_index)
+            if not self.store[val]:
+                del self.store[val]
+            self.nums.pop()
+            self.size -= 1
+            return True
+        del_index = next(iter(self.store[val]))
+        self.nums[del_index] = last_num
+        self.store[val].remove(del_index)
+        if not self.store[val]:
+            del self.store[val]
+        self.store[last_num].add(del_index)
+        self.store[last_num].remove(last_index)
+        self.nums.pop()
+        self.size -= 1
+        return True
+
+    def getRandom(self) -> int:
+        """
+        Get a random element from the collection.
+        """
+        index = random.randint(0, self.size - 1)
+        return self.nums[index]
+```
