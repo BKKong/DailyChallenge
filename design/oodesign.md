@@ -228,3 +228,33 @@ class SnapshotArray:
         i = bisect.bisect(self.array[index], (snap_id + 1, 0)) - 1
         return self.array[index][i][1]
 ```
+### 1381. Design a Stack With Increment Operation
+```
+class CustomStack:
+
+    def __init__(self, maxSize: int):
+        self.array = []
+        self.adds = []
+        self.max_size = maxSize
+
+    def push(self, x: int) -> None:
+        if len(self.array) >= self.max_size:
+            return
+        self.array.append(x)
+        self.adds.append(0)
+
+    def pop(self) -> int:
+        if not self.array:
+            return -1
+        if len(self.adds) >= 2:
+            self.adds[-2] += self.adds[-1]
+        return self.array.pop() + self.adds.pop()
+        
+    def increment(self, k: int, val: int) -> None:
+        if not self.array:
+            return
+        if len(self.array) < k:
+            self.adds[-1] += val
+        else:
+            self.adds[k - 1] += val
+```
