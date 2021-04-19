@@ -258,3 +258,77 @@ class CustomStack:
         else:
             self.adds[k - 1] += val
 ```
+### 146. LRU Cache
+```
+class DLinkedNode:
+    def __init__(self):
+        self.key = 0
+        self.value = 0
+        self.prev = None
+        self.next = None
+        
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        self.cache = {}
+        self.cache_size = 0
+        self.capacity = capacity
+        self.head, self.tail = DLinkedNode(), DLinkedNode()
+        
+        self.head.next = self.tail
+        self.tail.prev = self.head
+        
+
+    def get(self, key: int) -> int:
+        if key not in self.cache:
+            return -1
+        node = self.cache.get(key) 
+        self._move_to_head(node)
+        return node.value
+        
+
+    def put(self, key: int, value: int) -> None:
+        node = self.cache.get(key)
+        if not node:
+            new_node = DLinkedNode()
+            new_node.key = key
+            new_node.value = value
+            self._add(new_node)
+            
+            self.cache[key] = new_node
+            self.cache_size += 1
+            
+            if self.cache_size > self.capacity:
+                last_node = self._pop_last()
+                del self.cache[last_node.key]
+                self.cache_size -= 1
+        else:
+            node.value = value
+            last_node = self._move_to_head(node)
+            
+            
+    def _add(self, node):
+        node.prev = self.head
+        node.next = self.head.next
+        
+        self.head.next.prev = node
+        self.head.next = node
+        
+        
+    def _remove(self, node):
+        prev_node = node.prev
+        new_node = node.next
+        
+        prev_node.next = new_node
+        new_node.prev = prev_node
+    
+    def _move_to_head(self, node):
+        self._remove(node)
+        self._add(node)
+        
+    def _pop_last(self):
+        prev_node = self.tail.prev
+        self._remove(prev_node)
+        return prev_node
+        
+```
