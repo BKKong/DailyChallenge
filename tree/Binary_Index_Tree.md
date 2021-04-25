@@ -99,7 +99,7 @@ class NumMatrix:
 ```
 class FenwickTree:
     def __init__(self, n):
-        self.sums = [0] * (n + 1)
+        self.sums = [0] * n
         
     def update(self, index, delta):
         while index < len(self.sums):
@@ -122,7 +122,7 @@ class Solution:
             return []
         sorted_nums = sorted(nums)
         ranks = {}
-        rank = 1
+        rank = 0
         for i in range(len(sorted_nums)):
             if sorted_nums[i] not in ranks:
                 ranks[sorted_nums[i]] = rank
@@ -132,8 +132,8 @@ class Solution:
         for i in reversed(range(len(nums))):
             num = nums[i]
             num_rank = ranks[num]
-            count = tree.query(num_rank - 1)
+            count = tree.query(num_rank)
             ans.append(count)
-            tree.update(num_rank, 1)
+            tree.update(num_rank + 1, 1)
         return ans[::-1]
 ```
