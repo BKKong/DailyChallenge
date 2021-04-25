@@ -95,3 +95,45 @@ class NumMatrix:
         d = self.bits.query(row1, col1)
         return a - b - c + d
 ```
+### 315. Count of Smaller Numbers After Self
+```
+class FenwickTree:
+    def __init__(self, n):
+        self.sums = [0] * (n + 1)
+        
+    def update(self, index, delta):
+        while index < len(self.sums):
+            self.sums[index] += delta
+            index += self.lowbit(index)
+            
+    def query(self, index):
+        s = 0
+        while index > 0:
+            s += self.sums[index]
+            index -= self.lowbit(index)
+        return s
+            
+    def lowbit(self, index):
+        return index & -index
+
+class Solution:
+    def countSmaller(self, nums: List[int]) -> List[int]:
+        if not nums:
+            return []
+        sorted_nums = sorted(nums)
+        ranks = {}
+        rank = 1
+        for i in range(len(sorted_nums)):
+            if sorted_nums[i] not in ranks:
+                ranks[sorted_nums[i]] = rank
+                rank += 1
+        tree = FenwickTree(len(ranks) + 1)
+        ans = []
+        for i in reversed(range(len(nums))):
+            num = nums[i]
+            num_rank = ranks[num]
+            count = tree.query(num_rank - 1)
+            ans.append(count)
+            tree.update(num_rank, 1)
+        return ans[::-1]
+```
