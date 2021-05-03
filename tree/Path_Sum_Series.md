@@ -46,5 +46,35 @@
 #         if counter[prev_sum] == 0:
 #             del counter[prev_sum]
 #         prev_sum -= node.val
-        
+```
+
+### 666. Path Sum IV
+```
+# from collections import defaultdict
+# class Solution:
+#     def pathSum(self, nums: List[int]) -> int:
+#         if not nums:
+#             return 0
+#         numbers = defaultdict(dict)
+#         for num in nums:
+#             str_num = str(num)
+#             start = int(str_num[0])
+#             mid = int(str_num[1])
+#             val = str_num[2]
+#             numbers[start][mid] = int(val)
+#         self.ans = 0
+#         self.dfs(1, 1, numbers[1][1], numbers)
+#         return self.ans
+    
+#     def dfs(self, row, col, curr, numbers):
+#         if row + 1 not in numbers:
+#             self.ans += curr
+#             return 
+#         if all(i not in numbers[row + 1] for i in [col * 2 - 1, col * 2]):
+#             self.ans += curr
+#             return
+#         for new_col in [col * 2 - 1, col * 2]:
+#             if new_col in numbers[row + 1]:
+#                 self.dfs(row + 1, new_col, curr + numbers[row + 1][new_col], numbers)
+            
 ```
