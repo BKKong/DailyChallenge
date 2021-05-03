@@ -78,3 +78,42 @@
 #                 self.dfs(row + 1, new_col, curr + numbers[row + 1][new_col], numbers)
             
 ```
+### 687. Longest Univalue Path
+```
+# class Solution:
+#     def longestUnivaluePath(self, root: TreeNode) -> int:
+#         if not root:
+#             return 0
+#         self.ans = 0
+#         x = self.dfs(root)
+#         return self.ans
+    
+#     def dfs(self, node):
+#         if not node:
+#             return 0
+#         if not node.left and not node.right:
+#             return 0
+#         l_single = self.dfs(node.left)
+#         r_single = self.dfs(node.right)
+#         c_single, c_path = 0, 0
+#         if node.left and node.right:
+#             if node.val == node.left.val == node.right.val:
+#                 c_path = l_single + r_single + 2
+#                 c_single = max(l_single, r_single) + 1
+#             elif node.val == node.left.val:
+#                 c_single = l_single + 1
+#             elif node.val == node.right.val:
+#                 c_single = r_single + 1
+            
+#         elif node.left:
+#             if node.val == node.left.val:
+#                 c_single = l_single + 1
+                
+#         elif node.right:
+#             if node.val == node.right.val:
+#                 c_single = r_single + 1
+            
+#         self.ans = max(self.ans, c_single)
+#         self.ans = max(self.ans, c_path)
+#         return c_single
+```
