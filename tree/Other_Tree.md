@@ -88,3 +88,40 @@ class Solution:
             nodes.append(build_node(ops.pop(), nodes.pop(), nodes.pop()))
         return nodes.pop()
 ```
+
+### Tree Node Distance
+
+### 863. All Nodes Distance K in Binary Tree
+```
+from collections import deque
+# class Solution:
+#     def distanceK(self, root: TreeNode, target: TreeNode, K: int) -> List[int]:
+#         if K == 0:
+#             return [target.val]
+#         parents = {root: None}
+#         def dfs(node):
+#             if not node:
+#                 return
+#             if node.left:
+#                 parents[node.left] = node
+#                 dfs(node.left)
+#             if node.right:
+#                 parents[node.right] = node
+#                 dfs(node.right)
+#         dfs(root)
+#         queue = deque([(target, 0)])
+#         visited = set([target])
+#         ans = []
+#         while queue:
+#             node, dist = queue.popleft()
+#             if dist == K:
+#                 ans.append(node.val)
+#                 for nd, d in queue:
+#                     ans.append(nd.val)
+#                 break
+#             for neighbor in [node.left, node.right, parents[node]]:
+#                 if neighbor and neighbor not in visited:
+#                     queue.append((neighbor, dist + 1))
+#                     visited.add(neighbor)
+#         return ans
+```
