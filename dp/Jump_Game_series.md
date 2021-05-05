@@ -28,3 +28,25 @@
 #                     dp[i + j + 1] = min(dp[i + j + 1], dp[i] + 1)
 #         return dp[n - 1]
 ```
+### 1306. Jump Game III
+```
+# from collections import deque
+# class Solution:
+#     def canReach(self, arr: List[int], start: int) -> bool:
+#         if not arr:
+#             return False
+#         n = len(arr)
+#         if arr[start] == 0:
+#             return True
+#         queue = deque([start])
+#         visited = set([start])
+#         while queue:
+#             idx = queue.popleft()
+#             for new_idx in [idx + arr[idx], idx - arr[idx]]:
+#                 if 0 <= new_idx < n and new_idx not in visited:
+#                     if arr[new_idx] == 0:
+#                         return True
+#                     queue.append(new_idx)
+#                     visited.add(new_idx)
+#         return False
+```
