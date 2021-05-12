@@ -99,3 +99,27 @@ class Solution:
             return res[i]
         return max(map(dp, range(n)))
 ```
+### 975. Odd Even Jump
+```
+# from sortedcontainers import SortedDict
+# class Solution:
+#     def oddEvenJumps(self, arr: List[int]) -> int:
+#         n = len(arr)
+#         store = SortedDict()
+#         dp = [[False] * 2 for _ in range(n)]
+#         dp[n - 1][0] = True
+#         dp[n - 1][1] = True
+#         store[arr[n - 1]] = n - 1
+#         ans = 1
+#         for i in range(n - 2, -1, -1):
+#             next_greater = store.bisect_left(arr[i])
+#             if next_greater != len(store):
+#                 dp[i][0] = dp[store.peekitem(next_greater)[1]][1]
+#             next_smaller = store.bisect_right(arr[i]) - 1
+#             if next_smaller != -1:
+#                 dp[i][1] = dp[store.peekitem(next_smaller)[1]][0]
+#             store[arr[i]] = i
+#             if dp[i][0]:
+#                 ans += 1
+#         return ans
+```
