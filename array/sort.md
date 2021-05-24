@@ -17,3 +17,16 @@
 #             return "0"
 #         return "".join(nums_str)
 ```
+### 164. Maximum Gap
+```
+# class Solution:
+#     def maximumGap(self, nums: List[int]) -> int:
+#         for shift in range(0, 32, 8):
+#             lists = [[] for _ in range(256)]
+#             for num in nums:
+#                 lists[(num >> shift) & 0xff].append(num)
+#             nums = []
+#             for l in lists:
+#                 nums += l
+#         return max((num2 - num1 for num1, num2 in zip(nums, nums[1:])), default=0)
+```
