@@ -33,3 +33,37 @@ class Solution:
                     res += k - i
         return res  
 ```
+### 1567. Maximum Length of Subarray With Positive Product
+```
+class Solution:
+    def getMaxLen(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        n = len(nums)
+        pos = 0
+        neg = 0
+        max_len = -math.inf
+        for i in range(n):
+            if nums[i] > 0:
+                pos += 1
+                if neg > 0:
+                    neg += 1
+            elif nums[i] < 0:
+                last_pos, last_neg = pos, neg
+                if last_pos > 0:
+                    neg = last_pos + 1
+                else:
+                    neg = 1
+                if last_neg > 0:
+                    pos = last_neg + 1
+                else:
+                    pos = 0
+            else:
+                pos, neg = 0, 0
+                
+            max_len = max(max_len, pos)    
+        
+        if max_len > 0:
+            return max_len
+        return 0
+```
