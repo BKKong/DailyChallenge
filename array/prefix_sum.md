@@ -42,7 +42,7 @@ class Solution:
         n = len(nums)
         pos = 0
         neg = 0
-        max_len = -math.inf
+        max_len = 0
         for i in range(n):
             if nums[i] > 0:
                 pos += 1
@@ -60,10 +60,6 @@ class Solution:
                     pos = 0
             else:
                 pos, neg = 0, 0
-                
             max_len = max(max_len, pos)    
-        
-        if max_len > 0:
-            return max_len
-        return 0
+        return max_len
 ```
