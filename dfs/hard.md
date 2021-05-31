@@ -41,3 +41,25 @@
 #                     return False
 #         return count == 0
 ```
+### 241. Different Ways to Add Parentheses
+```
+class Solution:
+    def diffWaysToCompute(self, expression: str) -> List[int]:
+        n = len(expression)
+        ans = []
+        for i in range(n):
+            if expression[i] in ["+", "-", "*"]:
+                part1 = self.diffWaysToCompute(expression[:i])
+                part2 = self.diffWaysToCompute(expression[i + 1:])
+                for num1 in part1:
+                    for num2 in part2:
+                        if expression[i] == "+":
+                            ans.append(num1 + num2)
+                        elif expression[i] == "-":
+                            ans.append(num1 - num2)
+                        else:
+                            ans.append(num1 * num2)
+        if not ans:
+            ans.append(int(expression))
+        return ans
+```
