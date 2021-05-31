@@ -63,3 +63,23 @@ class Solution:
             max_len = max(max_len, pos)    
         return max_len
 ```
+### 1371. Find the Longest Substring Containing Vowels in Even Counts
+```
+class Solution:
+    def findTheLongestSubstring(self, s: str) -> int:
+        n = len(s)
+        vowels = {'a': 0, 'e': 1, 'i': 2, 'o': 3, 'u': 4}
+        curr = 1 << 5 - 1
+        first_pos = {curr: -1}  
+        
+        ans = 0
+        for i, c in enumerate(s):
+            if c in vowels:
+                v = vowels[c]
+                curr ^= (1 << v)
+            if curr in first_pos:
+                ans = max(ans, i - first_pos[curr])
+            else:
+                first_pos[curr] = i
+        return ans
+```
