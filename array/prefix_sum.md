@@ -83,3 +83,23 @@ class Solution:
                 first_pos[curr] = i
         return ans
 ```
+### 1590. Make Sum Divisible by P
+```
+class Solution:
+    def minSubarray(self, nums: List[int], p: int) -> int:
+        target = sum(nums) % p
+        if target == 0:
+            return 0
+        store = {0: 0}
+        sums = [0]
+        min_len = len(nums)
+        for i, num in enumerate(nums):
+            new_sum = sums[-1] + num
+            if (new_sum - target) % p in store:
+                min_len = min(min_len, i + 1 - store[(new_sum - target) % p])
+            sums.append(new_sum)
+            store[new_sum % p] = i + 1
+        if min_len == len(nums):
+            return -1
+        return min_len
+```
