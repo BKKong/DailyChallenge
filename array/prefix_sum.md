@@ -103,3 +103,39 @@ class Solution:
             return -1
         return min_len
 ```
+### 1658. Minimum Operations to Reduce X to Zero
+```
+class Solution:
+    def minOperations(self, nums: List[int], x: int) -> int:
+        forward, backward = {0: 0}, {0: 0}
+        for_list, back_list = [], []
+        curr = 0
+        n = len(nums)
+        for i in range(n):
+            curr += nums[i]
+            forward[curr] = i + 1
+            for_list.append(curr)
+        curr = 0
+        for j in reversed(range(n)):
+            curr += nums[j]
+            backward[curr] = n - j
+            back_list.append(curr)
+        
+        min_ops = n + 1
+        for i in range(n):
+            left_sum = for_list[i]
+            if x - left_sum in backward and forward[left_sum] + backward[x - left_sum] <= n:
+                #print("a: ", forward[left_sum], backward[x - left_sum])
+                min_ops = min(min_ops, forward[left_sum] + backward[x - left_sum])
+        
+        for j in range(n):
+            right_sum = back_list[j]
+            if x - right_sum in forward and backward[right_sum] + forward[x - right_sum] <= n:
+                #print("b: ", backward[right_sum], forward[x - right_sum])
+                min_ops = min(min_ops, backward[right_sum] + forward[x - right_sum])
+        
+        if min_ops == n + 1:
+            return -1
+        return min_ops
+                
+```
