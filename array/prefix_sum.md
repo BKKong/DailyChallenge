@@ -139,3 +139,17 @@ class Solution:
         return min_ops
                 
 ```
+### 1542. Find Longest Awesome Substring
+```
+class Solution:
+    def longestAwesome(self, s):
+        res, cur, n = 0, 0, len(s)
+        seen = [-1] + [n] * 1024
+        for i, c in enumerate(s):
+            cur ^= 1 << int(c)
+            for a in xrange(10):
+                res = max(res, i - seen[cur ^ (1 << a)])
+            res = max(res, i - seen[cur])
+            seen[cur] = min(seen[cur], i)
+        return res
+```
